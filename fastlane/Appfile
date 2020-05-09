@@ -1,0 +1,5 @@
+app_identifier("your.package.name.com")
+apple_id("your@email.com")
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

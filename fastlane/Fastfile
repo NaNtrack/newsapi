@@ -1,0 +1,88 @@
+update_fastlane
+
+lane :firebase do |options|
+  firebase_app_distribution(
+    app: options[:appId],
+    release_notes: "",
+    testers: "tester1@email.com, testter2@email.com",
+    groups: "",
+    debug: false
+  )
+end
+
+platform :ios do
+  desc "Increments the app version number"
+  lane :bump_version do
+    increment_version_number_in_xcodeproj(
+      xcodeproj: ENV['IOS_PROJECT_PATH'],
+      scheme: ENV['GYM_SCHEME'],
+      bump_type: 'patch'
+    )
+  end
+
+  desc "Send the app to iOS Testflight & Firebase Distribution"
+  lane :dist do
+    ensure_git_status_clean(
+      show_uncommitted_changes: true
+    )
+    increment_build_number(xcodeproj: ENV['IOS_PROJECT_PATH'])
+    gym
+    upload_to_testflight(
+      beta_app_review_info: {
+        contact_email: "contact@email.com",
+        contact_first_name: "First",
+        contact_last_name: "Name",
+        contact_phone: "phone number",
+        demo_account_name: "",
+        demo_account_password: "",
+        notes: "Your notes"
+      },
+    )
+    version = get_version_number_from_xcodeproj(xcodeproj: ENV['IOS_PROJECT_PATH'])
+    build = get_build_number_from_xcodeproj(xcodeproj: ENV['IOS_PROJECT_PATH'])
+    git_commit(path: ["ios/<ProjectName>/Info.plist", "ios/<ProjectName>.xcodeproj/project.pbxproj"], message: 'New Version for iOS: #{version} (#{build})')
+    slack(message: "<App Name> version #{version} (#{build}) for iOS successfully released!")
+  end
+end
+
+platform :android do
+  lane :bump_minor do
+
+  end
+
+  lane :bump_version do
+    path = '../android/app/build.gradle'
+      re = /versionCode\s+(\d+)/
+
+      s = File.read(path)
+      versionCode = s[re, 1].to_i
+      s[re, 1] = (versionCode + 1).to_s
+
+      f = File.new(path, 'w')
+      f.write(s)
+      f.close
+  end
+
+  desc "Send the app to Google Play & Firebase Distribution"
+  lane :dist do
+    ensure_git_status_clean(
+      show_uncommitted_changes: true
+    )
+    bump_version
+    gradle
+    upload_to_play_store
+    firebase(appId: ENV['FIREBASE_ANDROID_APP'])
+    name = android_get_version_name(gradle_file: 'android/app/build.gradle')
+    code = android_get_version_code(gradle_file: 'android/app/build.gradle')
+    git_commit(path: ["./android/app/build.gradle"], message: "New Version for Android: #{name}.#{code}")
+    slack(message: "<App Name> version #{name}.#{code} for Android successfully released!")
+  end
+end
+
+error do |lane, exception|
+  slack(
+    message: exception.to_s,
+    success: false,
+    payload: { "Output" => exception.error_info.to_s }
+  )
+end
