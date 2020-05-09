@@ -1,4 +1,4 @@
-package com.newsapi;
+package com.organization.appname;
 
 import android.app.Application;
 import android.content.Context;

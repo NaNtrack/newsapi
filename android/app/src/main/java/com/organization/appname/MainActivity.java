@@ -1,4 +1,4 @@
-package com.newsapi;
+package com.organization.appname;
 
 import com.facebook.react.ReactActivity;
 

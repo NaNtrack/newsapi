@@ -9,6 +9,7 @@
     "clean": "rm -rf ios/Output ios/build android/build android/app/build",
     "clean-ios": "rm -rf ios/Output ios/build",
     "clean-android": "rm -rf android/build android/app/build",
+    "bundle-dev": "react-native bundle --platform android --dev true --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint ."
@@ -20,9 +21,10 @@
     "install": "0.13.0",
     "is_js": "0.9.0",
     "lodash": "4.17.15",
-    "npm": "^6.14.5",
+    "npm": "6.14.5",
     "react": "16.11.0",
     "react-native": "0.62.2",
+    "react-native-elements": "2.0.0",
     "react-native-vector-icons": "6.6.0"
   },
   "devDependencies": {
