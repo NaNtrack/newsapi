@@ -2,6 +2,7 @@ export default {
   news: 'Noticias',
   defaultError: 'Oops! Algo salió mal',
   unknownError: 'Ha ocurrido un error inesperado',
+  linkingError: 'No se pudo abrir la url ',
   apiError: {
     an_error_ocurred: 'Ha ocurrido un error',
     no_internet: 'Por favor revisa tu conexión a internet',

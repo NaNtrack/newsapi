@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, ActivityIndicator, Linking, StyleSheet} from 'react-native';
+import {View, ScrollView, ActivityIndicator, Linking, StyleSheet} from 'react-native';
 import {Image, Text} from 'react-native-elements';
+import Toast from 'react-native-simple-toast';
 import Strings from '@I18n';
 
 export default class extends React.Component {
@@ -9,7 +10,7 @@ export default class extends React.Component {
       if (supported) {
         Linking.openURL(url);
       } else {
-        console.log("Don't know how to open URI: " + url);
+        Toast.showWithGravity(Strings.linkingError + url, Toast.SHORT, Toast.TOP);
       }
     });
   }
@@ -17,7 +18,7 @@ export default class extends React.Component {
   render() {
     const {article} = this.props;
     return (
-      <View style={stLocal.container}>
+      <ScrollView style={stLocal.container}>
         <Image
           source={{ uri: article.urlToImage }}
           style={stLocal.image}
@@ -31,7 +32,7 @@ export default class extends React.Component {
           <Text style={stLocal.description}>{article.content}</Text>
           <Text style={stLocal.link} onPress={() => this.openLink(article.url)}>Visit Website &gt;</Text>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

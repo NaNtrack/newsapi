@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "npx react-native run-android",
+    "android": "npm run bundle-dev && npx react-native run-android",
     "ios": "npm run pod --silent && npx react-native run-ios",
     "pod": "cd ios && pod install",
     "clean": "rm -rf ios/Output ios/build android/build android/app/build",

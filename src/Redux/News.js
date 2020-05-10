@@ -1,4 +1,5 @@
 import {createActions, createReducer} from 'reduxsauce';
+import {set, cloneDeep} from 'lodash';
 import {NewsService} from '@Services';
 import AppActions from './App';
 import apiErrorHandler from './utils'
@@ -63,8 +64,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   },
   [Types.TOGGLE_FAVORITE]: (state) => {
     const {selectedArticle, favorites} = state
-    const newSelected = selectedArticle;
-    let newFavorites = favorites;
+    const newSelected = cloneDeep(selectedArticle);
+    let newFavorites = cloneDeep(favorites);
     if (selectedArticle.starred) {
       newSelected.starred = false;
       newFavorites = newFavorites.filter(el => {

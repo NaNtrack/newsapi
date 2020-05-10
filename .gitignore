@@ -30,6 +30,7 @@ local.properties
 *.iml
 android/app/src/main/assets/index.android.bundle
 android/app/src/main/res/drawable-*/node_modules*
+android/app/src/main/res/raw/node_modules*
 
 # node.js
 #
