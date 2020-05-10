@@ -5,7 +5,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import NewsScreen from '@Screens/NewsScreen';
-import ArticleDetailScreen from '@Screens/ArticleDetailScreen';
 import ArticleWebViewScreen from '@Screens/ArticleWebViewScreen';
 import FavoritesScreen from '@Screens/FavoritesScreen';
 import SettingsScreen from '@Screens/SettingsScreen';
@@ -38,7 +37,6 @@ function  NewsStackNavigator() {
   return (
     <Stack.Navigator headerMode={'none'}>
       <Stack.Screen name="NewsHome" component={NewsScreen} />
-      <Stack.Screen name="ArticleDetails" component={ArticleDetailScreen} />
       <Stack.Screen name="ArticleWebView" component={ArticleWebViewScreen} />
     </Stack.Navigator>
   );
@@ -48,7 +46,6 @@ function  FavoritesStackNavigator() {
   return (
     <Stack.Navigator headerMode={'none'}>
       <Stack.Screen name="FavoritesHome" component={FavoritesScreen} />
-      <Stack.Screen name="ArticleDetails" component={ArticleDetailScreen} />
       <Stack.Screen name="ArticleWebView" component={ArticleWebViewScreen} />
     </Stack.Navigator>
   );

@@ -26,7 +26,7 @@ class NewsScreen extends React.Component {
 
   onArticlePress = id => {
     this.props.dispatch(NewsActions.selectArticleRequest(id));
-    this.props.navigation.navigate('ArticleDetails');
+    this.props.navigation.navigate('ArticleWebView');
   }
 
   updateSearch = (search) => {

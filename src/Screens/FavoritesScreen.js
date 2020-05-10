@@ -8,7 +8,7 @@ import {News} from '@Components'
 class FavoritesScreen extends React.Component {
   onArticlePress = id => {
     this.props.dispatch(NewsActions.selectFavoriteArticleRequest(id));
-    this.props.navigation.navigate('ArticleDetails');
+    this.props.navigation.navigate('ArticleWebView');
   }
 
   render() {
