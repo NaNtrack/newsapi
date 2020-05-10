@@ -13,7 +13,9 @@
     "bundle-prod": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "dist-ios": "npm run clean-ios --silent && npm run pod --silent && bundle exec fastlane ios dist",
+    "dist-android": "npm run clean-android --silent && npm run bundle-prod --silent && bundle exec fastlane android dist"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.10.0",
