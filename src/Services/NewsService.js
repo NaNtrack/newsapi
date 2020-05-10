@@ -23,17 +23,15 @@ export default class NewsService extends AbstractService {
   }
 
   static _buildEverythingQueryParams = (params): object => {
-    const {search, page, domains, sortBy, fromDate, toDate, language} = params;
+    const {search, sortBy, fromDate, toDate, language, sources} = params;
     return {
       apiKey: Credentials.NewsApi.key,
-      q: search || 'news',
-      pageSize: 50,
-      page: page || 1,
-      domains: domains || '',
+      qInTitle: search || 'news',
+      pageSize: 100,
       sortBy: sortBy || 'publishedAt',
-      fromDate: fromDate || NewsService._getDefaultFromDate(),
       toDate: toDate || NewsService._getDefaultToDate(),
-      language
+      language,
+
     }
   }
 

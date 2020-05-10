@@ -12,7 +12,6 @@ export const INITIAL_STATE = {
   totalResults: 0,
   params: {},
   language: '',
-  search: '',
 };
 
 /* ------------- Types and Action Creators ------------- */
