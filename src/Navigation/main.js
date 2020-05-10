@@ -6,6 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import NewsScreen from '@Screens/NewsScreen';
 import ArticleDetailScreen from '@Screens/ArticleDetailScreen';
+import ArticleWebViewScreen from '@Screens/ArticleWebViewScreen';
 import FavoritesScreen from '@Screens/FavoritesScreen';
 import SettingsScreen from '@Screens/SettingsScreen';
 import SettingsLanguageScreen from '@Screens/SettingsLanguageScreen';
@@ -38,6 +39,7 @@ function  NewsStackNavigator() {
     <Stack.Navigator headerMode={'none'}>
       <Stack.Screen name="NewsHome" component={NewsScreen} />
       <Stack.Screen name="ArticleDetails" component={ArticleDetailScreen} />
+      <Stack.Screen name="ArticleWebView" component={ArticleWebViewScreen} />
     </Stack.Navigator>
   );
 }
@@ -47,6 +49,7 @@ function  FavoritesStackNavigator() {
     <Stack.Navigator headerMode={'none'}>
       <Stack.Screen name="FavoritesHome" component={FavoritesScreen} />
       <Stack.Screen name="ArticleDetails" component={ArticleDetailScreen} />
+      <Stack.Screen name="ArticleWebView" component={ArticleWebViewScreen} />
     </Stack.Navigator>
   );
 }
@@ -82,7 +85,7 @@ class MainNavigation extends React.Component {
     return (
       <>
         <NavigationContainer>
-          <Drawer.Navigator initialRouteName="Home">
+          <Drawer.Navigator initialRouteName="News">
             <Drawer.Screen
               name={screens.news.homeTitle}
               component={MainTabNavigator}

@@ -1,22 +1,11 @@
 import React from 'react';
 import {View, ScrollView, ActivityIndicator, Linking, StyleSheet} from 'react-native';
 import {Image, Text} from 'react-native-elements';
-import Toast from 'react-native-simple-toast';
 import Strings from '@I18n';
 
 export default class extends React.Component {
-  openLink = (url: string) => {
-    Linking.canOpenURL(url).then(supported => {
-      if (supported) {
-        Linking.openURL(url);
-      } else {
-        Toast.showWithGravity(Strings.linkingError + url, Toast.SHORT, Toast.TOP);
-      }
-    });
-  }
-
   render() {
-    const {article} = this.props;
+    const {article, onVisitWebsite} = this.props;
     return (
       <ScrollView style={stLocal.container}>
         <Image
@@ -30,7 +19,7 @@ export default class extends React.Component {
           <Text>{Strings.screens.articleDetails.source} {article.source.name}</Text>
           <Text style={stLocal.description}>{article.description}</Text>
           <Text style={stLocal.description}>{article.content}</Text>
-          <Text style={stLocal.link} onPress={() => this.openLink(article.url)}>Visit Website &gt;</Text>
+          <Text style={stLocal.link} onPress={() => onVisitWebsite()}>Visit Website &gt;</Text>
         </View>
       </ScrollView>
     );

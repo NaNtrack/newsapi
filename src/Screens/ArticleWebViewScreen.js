@@ -1,17 +1,13 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet} from 'react-native';
+import {View, StyleSheet, ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
 import {Header} from 'react-native-elements';
-import {ArticleDetail} from '@Components'
+import {WebView} from 'react-native-webview';
 import NewsActions from '@Redux/News';
 
-class ArticleDetailScreen extends React.Component {
+class ArticleWebViewScreen extends React.Component {
   toggleFavorite = () => {
     this.props.dispatch(NewsActions.toggleFavoriteRequest());
-  }
-
-  openUrl = () => {
-    this.props.navigation.navigate('ArticleWebView');
   }
 
   render() {
@@ -34,7 +30,12 @@ class ArticleDetailScreen extends React.Component {
             onPress: () => this.toggleFavorite(),
           }}
         />
-        <ArticleDetail article={this.props.selectedArticle} onVisitWebsite={this.openUrl}/>
+        <WebView
+          originWhitelist={['*']}
+          source={{ uri: selectedArticle.url }}
+          renderLoading={() => <View style={stLocal.webviewContainer}><ActivityIndicator size={'large'} color={'#000'} /></View>}
+          startInLoadingState={true}
+        />
       </View>
     );
   }
@@ -52,11 +53,15 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ArticleDetailScreen);
+)(ArticleWebViewScreen);
 
 const stLocal = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F8F8F8',
+  },
+  webviewContainer: {
+    flex: 1,
+    backgroundColor: '#fff'
   },
 });
