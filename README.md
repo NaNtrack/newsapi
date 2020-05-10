@@ -30,3 +30,7 @@ Edit the `.env` file with your stores information
 
     npm run dist-ios
     npm run dist-android
+
+# TODO
+
+- Fix `sources` parameter
