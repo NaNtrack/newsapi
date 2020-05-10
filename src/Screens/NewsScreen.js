@@ -8,7 +8,7 @@ import {News} from '@Components'
 
 class NewsScreen extends React.Component {
   componentDidMount() {
-    this.props.dispatch(NewsActions.refreshRequest());
+    this.props.dispatch(NewsActions.everythingRequest({}));
   }
 
   onArticlePress = id => {
@@ -31,7 +31,7 @@ class NewsScreen extends React.Component {
             icon: 'refresh',
             color: '#fff',
             type: 'font-awesome',
-            onPress: () => this.props.dispatch(NewsActions.refreshRequest()),
+            onPress: () => this.props.dispatch(NewsActions.everythingRequest({})),
           }}
         />
         <News articles={this.props.articles} onPress={this.onArticlePress}/>

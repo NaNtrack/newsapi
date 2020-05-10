@@ -10,13 +10,12 @@ export const INITIAL_STATE = {
   favorites: [],
   sources: [],
   totalResults: 0,
-  newsType: 'everything',
   params: {}
 };
 
 /* ------------- Types and Action Creators ------------- */
 export const {Types, Creators} = createActions({
-  setNews: ['news', 'totalResults', 'newsType', 'params'],
+  setNews: ['news', 'totalResults', 'params'],
   addFavorite: ['article'],
   setSources: ['sources'],
   setSelected: ['index'],
@@ -27,12 +26,11 @@ export const {Types, Creators} = createActions({
 /* ------------- Hookup Reducers To Types ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.SET_NEWS]: (state, action) => {
-    const {news, totalResults, newsType, params} = action;
+    const {news, totalResults, params} = action;
     return {
       ...state,
       news,
       totalResults,
-      newsType,
       params
     };
   },
@@ -87,26 +85,13 @@ export const reducer = createReducer(INITIAL_STATE, {
 });
 
 /* ------------- Thunks actions ------------- */
-const headlinesRequest = (params) => {
-  return dispatch => {
-    dispatch(AppActions.setLoading(true));
-    NewsService.headlines(params)
-      .then(response => {
-        const {articles, totalResults} = response.data;
-        dispatch(Creators.setNews(articles, totalResults, 'headlines', params));
-        dispatch(AppActions.setLoading(false));
-      })
-      .catch(err => apiErrorHandler({dispatch, api: true}, err));
-  };
-}
-
 const everythingRequest = (params) => {
   return dispatch => {
     dispatch(AppActions.setLoading(true));
     NewsService.everything(params)
       .then(response => {
         const {articles, totalResults} = response.data;
-        dispatch(Creators.setNews(articles, totalResults, 'everything', params));
+        dispatch(Creators.setNews(articles, totalResults, params));
         dispatch(AppActions.setLoading(false));
       })
       .catch(err => apiErrorHandler({dispatch, api: true}, err));
@@ -121,18 +106,6 @@ const sourcesRequest = (params) => {
         dispatch(Creators.setSources(sources, totalResults, params));
       })
       .catch(err => apiErrorHandler({dispatch, api: true}, err));
-  };
-}
-
-const refreshRequest = () => {
-  return (dispatch, getState) => {
-    const {news} = getState();
-    const {newsType, params} = news;
-    if (newsType === 'everything') {
-      dispatch(everythingRequest(params));
-    } else {
-      dispatch(headlinesRequest(params));
-    }
   };
 }
 
@@ -159,10 +132,8 @@ const toggleFavoriteRequest = () => {
 }
 
 export default {
-  headlinesRequest,
   everythingRequest,
   sourcesRequest,
-  refreshRequest,
   selectArticleRequest,
   selectFavoriteArticleRequest,
   toggleFavoriteRequest,

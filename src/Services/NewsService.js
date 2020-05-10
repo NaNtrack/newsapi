@@ -22,7 +22,7 @@ export default class NewsService extends AbstractService {
       + toDate.getDate().toString().padStart(2, '0');
   }
 
-  static _buildQueryParams = (params): object => {
+  static _buildEverythingQueryParams = (params): object => {
     const {search, page, domains, sortBy, fromDate, toDate} = params;
     return {
       apiKey: Credentials.NewsApi.key,
@@ -36,15 +36,18 @@ export default class NewsService extends AbstractService {
     }
   }
 
-  static async headlines(params) {
-    return this.get(APIEndpoints.headlines, NewsService._buildQueryParams(params));
+  static _buildSourcesQueryParams = (params): object => {
+    const {search, page, domains, sortBy, fromDate, toDate} = params;
+    return {
+      apiKey: Credentials.NewsApi.key,
+    }
   }
 
   static async everything(params) {
-    return this.get(APIEndpoints.everything, NewsService._buildQueryParams(params));
+    return this.get(APIEndpoints.everything, NewsService._buildEverythingQueryParams(params));
   }
 
   static async sources(params) {
-    return this.get(APIEndpoints.sources, NewsService._buildQueryParams(params));
+    return this.get(APIEndpoints.sources, NewsService._buildSourcesQueryParams(params));
   }
 }
