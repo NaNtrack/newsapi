@@ -20,7 +20,6 @@ export default {
     },
     favorites: {
       title: 'Favoritos',
-      noFavorites: 'No has agregado ninguna noticia a tus favoritos',
     },
     settings: {
       title: 'Opciones',
@@ -30,7 +29,8 @@ export default {
       sourcesSubtitle: 'Selecciona la fuente de tus noticias',
     },
     languages: {
-      title: 'Languages',
+      title: 'Languajes',
+      all: 'Todos los lenguajes',
       ar: 'Arábigo',
       de: 'Alemán',
       en: 'Inglés',
@@ -44,6 +44,9 @@ export default {
       ru: 'Ruso',
       se: 'Sami septentrional',
       zh: 'Chino'
+    },
+    sources: {
+      title: 'Fuentes',
     },
   },
 };

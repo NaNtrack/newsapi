@@ -12,8 +12,6 @@ export const INITIAL_STATE = {
   totalResults: 0,
   params: {},
   language: '',
-  country: '',
-  category: '',
   search: '',
 };
 
@@ -158,7 +156,6 @@ const selectFavoriteArticleRequest = (index) => {
 
 const toggleFavoriteRequest = () => {
   return dispatch => {
-    // TODO: verify index range
     dispatch(Creators.toggleFavorite());
   };
 }

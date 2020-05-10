@@ -58,10 +58,10 @@ function MainTabNavigator() {
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
 
-          if (route.name === 'News') {
+          if (route.name === screens.news.title) {
             iconName = focused ? 'news' : 'news';
             return <EntypoIcon name={iconName} size={size} color={color} />;
-          } else if (route.name === 'Favorites') {
+          } else if (route.name === screens.favorites.title) {
             iconName = focused ? 'star' : 'staro';
             return <AntDesignIcon  name={iconName} size={size} color={color}/>;
           }
@@ -71,8 +71,8 @@ function MainTabNavigator() {
         activeTintColor: 'black',
         inactiveTintColor: 'gray',
       }}>
-      <Tab.Screen name={"News"} component={NewsStackNavigator} />
-      <Tab.Screen name={"Favorites"} component={FavoritesStackNavigator} />
+      <Tab.Screen name={screens.news.title} component={NewsStackNavigator} />
+      <Tab.Screen name={screens.favorites.title} component={FavoritesStackNavigator} />
     </Tab.Navigator>
   );
 }

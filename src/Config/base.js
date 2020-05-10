@@ -80,11 +80,6 @@ const ReduxPersist = {
     storage: AsyncStorage,
     blacklist: [],
   },
-  authPersistConfig: {
-    key: 'auth',
-    storage: AsyncStorage,
-    blacklist: ['loggedIn'],
-  },
 };
 
 export default {API, DebugSettings, ReduxPersist, ReduxLogger};

@@ -9,7 +9,7 @@ const {screens} = Strings;
 
 class SettingsScreen extends React.Component {
   componentDidMount() {
-    const {dispatch, language, country, category} = this.props;
+    const {dispatch, language} = this.props;
     dispatch(NewsActions.sourcesRequest({
       language,
     }));
@@ -42,7 +42,7 @@ class SettingsScreen extends React.Component {
             color: '#fff',
             onPress: () => this.props.navigation.goBack(),
           }}
-          centerComponent={{text: Strings.screens.sources.title, style: {color: '#fff'}}}
+          centerComponent={{text: screens.sources.title, style: {color: '#fff'}}}
         />
         <FlatList
           ListHeaderComponent={<View style={stLocal.withTopMargin}/>}
@@ -58,8 +58,6 @@ class SettingsScreen extends React.Component {
 const mapStateToProps = ({news}) => ({
   sources: news.sources,
   language: news.language,
-  country: news.country,
-  category: news.category
 });
 
 const mapDispatchToProps = dispatch => ({

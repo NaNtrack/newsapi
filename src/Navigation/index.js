@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import MainNavigation from './main';
-import {default as InitializingApp} from '../Components/InitializingApp';
+import {InitializingApp} from '@Components';
 
 class Navigation extends React.Component {
   render() {

@@ -12,9 +12,7 @@ class NewsScreen extends React.Component {
   };
 
   getSources = (): string => {
-    const sources = this.props.selectedSources.join(',');
-    console.log({sources: this.props.sources});
-    return sources;
+    return this.props.selectedSources.join(',');
   }
 
   componentDidMount() {

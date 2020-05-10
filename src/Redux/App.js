@@ -29,15 +29,15 @@ export const reducer = createReducer(INITIAL_STATE, {
 });
 
 /* ------------- Thunks actions ------------- */
-const setLoading = loading => {
-  return dispatch => {
-    dispatch(Creators.setLoading(loading));
-  };
-};
-
 const init = () => {
   return dispatch => {
     dispatch(Creators.init());
+  };
+};
+
+const setLoading = loading => {
+  return dispatch => {
+    dispatch(Creators.setLoading(loading));
   };
 };
 

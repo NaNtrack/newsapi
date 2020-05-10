@@ -43,7 +43,7 @@ class SettingsScreen extends React.Component {
             color: '#fff',
             onPress: () => this.props.navigation.goBack(),
           }}
-          centerComponent={{text: Strings.screens.languages.title, style: {color: '#fff'}}}
+          centerComponent={{text: screens.languages.title, style: {color: '#fff'}}}
         />
         <FlatList
           ListHeaderComponent={<View style={stLocal.withTopMargin}/>}
