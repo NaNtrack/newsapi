@@ -7,7 +7,12 @@ The second tab shows the favorites news
 
     git clone git@github.com:NaNtrack/newsapi.git
     cd newsapi
+    brew install nvm
+    nvm install v10.19.0
+    nvm use v10.19.0
     npm i
+    sudo gem install bundler:2.1.4
+    sudo bundle install
 
 #Run on iOS simulator
 
