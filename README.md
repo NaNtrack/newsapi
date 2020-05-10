@@ -16,3 +16,12 @@ The second tab shows the favorites news
 #Run on Android emulator or connected device
 
     npm run android
+
+#Distribute to the stores
+
+    cp .env.template .env
+
+Edit the `.env` file with your stores information
+
+    npm run dist-ios
+    npm run dist-android
