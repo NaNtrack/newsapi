@@ -1,5 +1,19 @@
 import axios from 'axios';
 import Config from '@Config';
+import * as AxiosLogger from 'axios-logger';
+
+const axiosInstance = axios.create();
+AxiosLogger.setGlobalConfig({
+  prefixText: 'NewsApi',
+  dateFormat: 'HH:MM:ss',
+  status: true,
+  headers: true,
+  url: true,
+  method: true,
+  data: true,
+});
+axiosInstance.interceptors.request.use(AxiosLogger.requestLogger, AxiosLogger.errorLogger);
+// axiosInstance.interceptors.response.use(AxiosLogger.responseLogger, AxiosLogger.errorLogger);
 
 export default class AbstractService {
   /**
@@ -125,7 +139,7 @@ export default class AbstractService {
       ...headers,
     };
 
-    return axios({
+    return axiosInstance({
       baseURL,
       url,
       method,

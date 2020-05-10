@@ -2,55 +2,53 @@ import React from 'react';
 import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import {Header, ListItem} from 'react-native-elements';
 import {connect} from 'react-redux';
+import NewsActions from '@Redux/News';
 import Strings from '@I18n';
 
 const {screens} = Strings;
 
 class SettingsScreen extends React.Component {
-  settings = [
-    {
-      title: screens.settings.language,
-      subtitle: screens.settings.languageSubtitle,
-      icon: {name: 'language', type: 'entypo'},
-      onPress: () => this.props.navigation.navigate('SettingsLanguage'),
-    },
-    {
-      title: screens.settings.sources,
-      subtitle: screens.settings.sourcesSubtitle,
-      icon: {name: 'docs', type: 'simple-line-icon'},
-      onPress: () => this.props.navigation.navigate('SettingsSources'),
-    }
-  ];
-
   keyExtractor = (item, index) => index.toString();
 
   renderItem = ({item, index}) => (
     <TouchableOpacity onPress={() => item.onPress()}>
       <ListItem
         title={item.title}
-        subtitle={item.subtitle}
-        leftIcon={{ name: item.icon.name, type: item.icon.type }}
         bottomDivider
-        chevron
+        checkmark={item.selected}
       />
     </TouchableOpacity>
   );
 
   render() {
+    const {language} = this.props;
+    let languages = ['ar', 'de', 'en', 'es', 'fr', 'he', 'it', 'nl', 'no', 'pt', 'ru', 'se', 'zh'].map(el => {
+      return {
+        title: screens.languages[el],
+        onPress: () => this.props.dispatch(NewsActions.setLanguageRequest(el)),
+        selected: language === el,
+      }
+    });
+    languages.unshift({
+      title: screens.languages.all,
+      onPress: () => this.props.dispatch(NewsActions.setLanguageRequest('')),
+      selected: language === '',
+    })
     return (
       <View style={stLocal.container}>
         <Header
           leftComponent={{
-            icon: 'menu',
+            icon: 'ios-arrow-back',
+            type: 'ionicon',
             color: '#fff',
-            onPress: () => this.props.navigation.openDrawer(),
+            onPress: () => this.props.navigation.goBack(),
           }}
-          centerComponent={{text: Strings.screens.settings.title, style: {color: '#fff'}}}
+          centerComponent={{text: Strings.screens.languages.title, style: {color: '#fff'}}}
         />
         <FlatList
           ListHeaderComponent={<View style={stLocal.withTopMargin}/>}
           keyExtractor={this.keyExtractor}
-          data={this.settings}
+          data={languages}
           renderItem={this.renderItem}
         />
       </View>
@@ -58,8 +56,8 @@ class SettingsScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  articles: state.news.favorites,
+const mapStateToProps = ({news}) => ({
+  language: news.language,
 });
 
 const mapDispatchToProps = dispatch => ({

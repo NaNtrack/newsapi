@@ -8,6 +8,8 @@ import NewsScreen from '@Screens/NewsScreen';
 import ArticleDetailScreen from '@Screens/ArticleDetailScreen';
 import FavoritesScreen from '@Screens/FavoritesScreen';
 import SettingsScreen from '@Screens/SettingsScreen';
+import SettingsLanguageScreen from '@Screens/SettingsLanguageScreen';
+import SettingsSourcesScreen from '@Screens/SettingsSourcesScreen';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
@@ -20,6 +22,16 @@ const {screens} = Strings;
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
+function SettingsStackNavigator() {
+  return (
+    <Stack.Navigator headerMode={'none'}>
+      <Stack.Screen name="SettingsHome" component={SettingsScreen} />
+      <Stack.Screen name="SettingsLanguage" component={SettingsLanguageScreen} />
+      <Stack.Screen name="SettingsSources" component={SettingsSourcesScreen} />
+    </Stack.Navigator>
+  );
+}
 
 function  NewsStackNavigator() {
   return (
@@ -82,7 +94,7 @@ class MainNavigation extends React.Component {
             />
             <Drawer.Screen
               name={screens.settings.title}
-              component={SettingsScreen}
+              component={SettingsStackNavigator}
               options={{
                 drawerIcon: _config => <IoniconsIcon
                 size={23}

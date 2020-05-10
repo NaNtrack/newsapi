@@ -10,7 +10,11 @@ export const INITIAL_STATE = {
   favorites: [],
   sources: [],
   totalResults: 0,
-  params: {}
+  params: {},
+  language: '',
+  country: '',
+  category: '',
+  search: '',
 };
 
 /* ------------- Types and Action Creators ------------- */
@@ -21,6 +25,8 @@ export const {Types, Creators} = createActions({
   setSelected: ['index'],
   setFavoriteSelected: ['index'],
   toggleFavorite: null,
+  setLanguage: ['language'],
+  toggleSelectedSource: ['sourceId'],
 });
 
 /* ------------- Hookup Reducers To Types ------------- */
@@ -57,7 +63,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SET_SOURCES]: (state, action) => {
     return {
       ...state,
-      news: action.sources,
+      sources: action.sources,
     };
   },
   [Types.TOGGLE_FAVORITE]: (state) => {
@@ -80,6 +86,32 @@ export const reducer = createReducer(INITIAL_STATE, {
       ...state,
       selectedArticle: newSelected,
       favorites: newFavorites,
+    };
+  },
+  [Types.SET_LANGUAGE]: (state, action) => {
+    return {
+      ...state,
+      language: action.language,
+    };
+  },
+  [Types.TOGGLE_SELECTED_SOURCE]: (state, action) => {
+    const {sources} = state;
+    const {sourceId} = action;
+    let newSources = cloneDeep(sources);
+    newSources = newSources.map(el => {
+      if (el.id === sourceId) {
+        if (el.selected === true) {
+          el.selected = false;
+        } else {
+          el.selected = true;
+        }
+      }
+
+      return el;
+    });
+    return {
+      ...state,
+      sources: newSources,
     };
   },
 });
@@ -131,10 +163,24 @@ const toggleFavoriteRequest = () => {
   };
 }
 
+const setLanguageRequest = (language: string) => {
+  return dispatch => {
+    dispatch(Creators.setLanguage(language));
+  };
+}
+
+const toggleSelectedSourceRequest = (sourceId: string) => {
+  return dispatch => {
+    dispatch(Creators.toggleSelectedSource(sourceId));
+  };
+}
+
 export default {
   everythingRequest,
   sourcesRequest,
   selectArticleRequest,
   selectFavoriteArticleRequest,
   toggleFavoriteRequest,
+  setLanguageRequest,
+  toggleSelectedSourceRequest,
 };
